@@ -12,3 +12,25 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Pet {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  weight      Float
+  fv_food     String
+  birth       DateTime?
+
+  @@map("pets")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  birth     DateTime
+  mail      String
+  password  String
+  createdAt DateTime @default(now())
+
+  @@map("users")
+}

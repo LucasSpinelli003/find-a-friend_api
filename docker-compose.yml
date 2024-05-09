@@ -6,6 +6,6 @@ services:
     ports:
       - 3000:5432
     environment:
-      - POSTGRESQL_USERNAME=user
-      - POSTGRESQL_PASSWORD=pasword
-      - POSTGRESQL_DATABASE=apisolid
+      - POSTGRESQL_USERNAME=mypets
+      - POSTGRESQL_PASSWORD=mypets
+      - POSTGRESQL_DATABASE=solidpets
