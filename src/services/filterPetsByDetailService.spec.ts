@@ -1,6 +1,6 @@
 import { InMemoryPetsRepository } from "@/repositories/in-memory/in-memory-pets-repository";
 import { beforeEach, describe, expect, it } from "vitest";
-import { FilterPetsByDetailsService } from "./filterPetsByDetail";
+import { FilterPetsByDetailsService } from "./filterPetsByDetailService";
 import { randomUUID } from "crypto";
 
 describe("Filter Pets By Details", () => {

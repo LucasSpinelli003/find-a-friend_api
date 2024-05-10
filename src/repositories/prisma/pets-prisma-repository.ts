@@ -6,7 +6,11 @@ export class PrismaPetsRepository implements PetsRepository {
   async filterByDetail(query: string) {
     const pets = await prisma.pet.findMany({
       where: {
-        OR: [{ name: query }, { description: query }, { fv_food: query }],
+        OR: [
+          { name: { contains: query } },
+          { description: { contains: query } },
+          { fv_food: { contains: query } },
+        ],
       },
     });
 
@@ -22,6 +26,19 @@ export class PrismaPetsRepository implements PetsRepository {
       data,
     });
 
+    return pet;
+  }
+
+  async filterById(petId: string) {
+    const pet = await prisma.pet.findUnique({
+      where: {
+        id: petId,
+      },
+    });
+
+    if (!pet) {
+      return null;
+    }
     return pet;
   }
 }
