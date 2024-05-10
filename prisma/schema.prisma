@@ -30,6 +30,7 @@ model User {
   birth     DateTime
   mail      String
   password  String
+  city      String
   createdAt DateTime @default(now())
 
   @@map("users")
