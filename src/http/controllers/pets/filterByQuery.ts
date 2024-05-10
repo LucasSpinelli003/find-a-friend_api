@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from "@/services/errors/resource-not-found-error";
-import { makeFilterByQuery } from "@/services/factories/make-filter-by-query";
+import { makeFilterByQueryService } from "@/services/factories/make-filter-by-query-service";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
@@ -14,7 +14,7 @@ export async function filterByQuery(
   const { query } = queryParamSchema.parse(request.query);
 
   try {
-    const service = makeFilterByQuery();
+    const service = makeFilterByQueryService();
 
     const { pets } = await service.execute({ query });
 

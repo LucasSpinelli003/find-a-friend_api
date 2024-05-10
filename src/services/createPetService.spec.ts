@@ -1,6 +1,6 @@
 import { InMemoryPetsRepository } from "@/repositories/in-memory/in-memory-pets-repository";
 import { beforeEach, describe, expect, it } from "vitest";
-import { CreatePetService } from "./create-pet-service";
+import { CreatePetService } from "./createPetService";
 
 describe("Create pet service tests", () => {
   let inMemoryPetsRepository: InMemoryPetsRepository;
