@@ -34,6 +34,9 @@ export class PrismaPetsRepository implements PetsRepository {
       where: {
         id: petId,
       },
+      include: {
+        organization: true,
+      },
     });
 
     if (!pet) {

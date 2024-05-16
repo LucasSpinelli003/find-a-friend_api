@@ -14,12 +14,14 @@ datasource db {
 }
 
 model Pet {
-  id          String    @id @unique @default(uuid())
-  name        String
-  description String
-  weight      Float
-  fv_food     String
-  birth       DateTime?
+  id             String       @id @unique @default(uuid())
+  name           String
+  description    String
+  weight         Float
+  fv_food        String
+  birth          DateTime?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId String?
 
   @@map("pets")
 }
@@ -34,4 +36,17 @@ model User {
   createdAt DateTime @default(now())
 
   @@map("users")
+}
+
+model Organization {
+  id           String   @id @unique @default(uuid())
+  name         String
+  description  String?
+  phone        String
+  localization String
+  city         String
+  createdAt    DateTime @default(now())
+  Pet          Pet[]
+
+  @@map("organizations")
 }
