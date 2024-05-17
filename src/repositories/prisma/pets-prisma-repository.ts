@@ -3,6 +3,21 @@ import { PetsRepository } from "../pets-repository";
 import { prisma } from "@/lib/prisma";
 
 export class PrismaPetsRepository implements PetsRepository {
+  async filterByCity(city: string) {
+    const pets = await prisma.pet.findMany({
+      where: {
+        organization: {
+          city,
+        },
+      },
+    });
+    if (!pets) {
+      return null;
+    }
+
+    return pets;
+  }
+
   async filterByDetail(query: string) {
     const pets = await prisma.pet.findMany({
       where: {
@@ -33,9 +48,6 @@ export class PrismaPetsRepository implements PetsRepository {
     const pet = await prisma.pet.findUnique({
       where: {
         id: petId,
-      },
-      include: {
-        organization: true,
       },
     });
 

@@ -1,9 +1,9 @@
-import { Organization, Pet, Prisma } from "@prisma/client";
+import { Organization, Prisma } from "@prisma/client";
 import { randomUUID } from "crypto";
 import { OrganizationRepository } from "../organizations-repository";
 
 export class InMemoryOrganizationRepository implements OrganizationRepository {
-  private organizations: Organization[] = [];
+  public organizations: Organization[] = [];
 
   async create(data: Prisma.OrganizationCreateInput) {
     const organization: Organization = {

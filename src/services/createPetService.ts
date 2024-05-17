@@ -7,6 +7,7 @@ interface CreatePetRequest {
   birth: Date;
   favoriteFood: string;
   weight: number;
+  organizationId: string;
 }
 
 interface CreatePetResponse {
@@ -22,6 +23,7 @@ export class CreatePetService {
     description,
     favoriteFood,
     weight,
+    organizationId,
   }: CreatePetRequest): Promise<CreatePetResponse> {
     const pet = await this.petsRepository.create({
       name,
@@ -29,6 +31,7 @@ export class CreatePetService {
       weight,
       fv_food: favoriteFood,
       birth,
+      organizationId,
     });
     return { pet };
   }

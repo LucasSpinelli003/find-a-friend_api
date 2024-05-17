@@ -1,6 +1,6 @@
-import { OrganizationRepository } from "@/repositories/organizations-repository";
 import { Pet } from "@prisma/client";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
+import { PetsRepository } from "@/repositories/pets-repository";
 
 interface FilterPetsByCityRequest {
   city: string;
@@ -11,21 +11,19 @@ interface FilterPetsByResponse {
 }
 
 export class FilterPetsByCityService {
-  constructor(private organizationRepository: OrganizationRepository) {}
+  constructor(private petsRepository: PetsRepository) {}
 
   async execute({
     city,
   }: FilterPetsByCityRequest): Promise<FilterPetsByResponse> {
-    const organitazions = await this.organizationRepository.filerByCity(city);
+    const pets = await this.petsRepository.filterByCity(city);
 
-    console.log("--->", organitazions);
-
-    if (!organitazions) {
+    if (!pets) {
       throw new ResourceNotFoundError();
     }
 
     return {
-      organitazions,
+      pets,
     };
   }
 }

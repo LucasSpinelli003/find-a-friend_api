@@ -1,17 +1,37 @@
 import { Pet, Prisma } from "@prisma/client";
 import { PetsRepository } from "../pets-repository";
 import { randomUUID } from "crypto";
+import { InMemoryOrganizationRepository } from "./in-memory-organizations-repository";
 
 export class InMemoryPetsRepository implements PetsRepository {
   private pets: Pet[] = [];
+  private organizationRepository = new InMemoryOrganizationRepository();
+
+  async filterByCity(city: string) {
+    const organizations = await this.organizationRepository.filerByCity(city);
+
+    if (!organizations) {
+      return null;
+    }
+    const pets = await Promise.all(
+      organizations?.map(async (organization) => {
+        return await this.filterByOrganizationId(organization.id);
+      }),
+    );
+
+    if (!pets) {
+      return null;
+    }
+    const allPet = pets.flat();
+
+    return allPet;
+  }
 
   async filterByOrganizationId(organizationId: string) {
     const pets = this.pets.filter((pet) => {
       return pet.organizationId === organizationId;
     });
-    if (!pets) {
-      return null;
-    }
+
     return pets;
   }
 
@@ -42,7 +62,7 @@ export class InMemoryPetsRepository implements PetsRepository {
     return pets;
   }
 
-  async create(data: Prisma.PetCreateInput) {
+  async create(data: Prisma.PetUncheckedCreateInput) {
     const pet: Pet = {
       id: randomUUID(),
       name: data.name,
@@ -50,6 +70,7 @@ export class InMemoryPetsRepository implements PetsRepository {
       birth: data.birth ? new Date(data.birth) : null,
       weight: data.weight,
       fv_food: data.fv_food,
+      organizationId: data.organizationId ? data.organizationId : null,
     };
     await this.pets.push(pet);
 
