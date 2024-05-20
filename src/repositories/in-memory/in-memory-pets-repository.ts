@@ -13,18 +13,18 @@ export class InMemoryPetsRepository implements PetsRepository {
     if (!organizations) {
       return null;
     }
-    const pets = await Promise.all(
+    const petAll = await Promise.all(
       organizations?.map(async (organization) => {
         return await this.filterByOrganizationId(organization.id);
       }),
     );
 
-    if (!pets) {
+    if (!petAll) {
       return null;
     }
-    const allPet = pets.flat();
+    const pets = petAll.flat();
 
-    return allPet;
+    return pets;
   }
 
   async filterByOrganizationId(organizationId: string) {
