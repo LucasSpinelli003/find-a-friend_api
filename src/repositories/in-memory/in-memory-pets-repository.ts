@@ -5,7 +5,7 @@ import { InMemoryOrganizationRepository } from "./in-memory-organizations-reposi
 
 export class InMemoryPetsRepository implements PetsRepository {
   private pets: Pet[] = [];
-  private organizationRepository = new InMemoryOrganizationRepository();
+  public organizationRepository = new InMemoryOrganizationRepository();
 
   async filterByCity(city: string) {
     const organizations = await this.organizationRepository.filerByCity(city);
