@@ -41,6 +41,8 @@ model User {
 model Organization {
   id           String   @id @unique @default(uuid())
   name         String
+  login        String?
+  password     String? 
   description  String?
   phone        String
   localization String
