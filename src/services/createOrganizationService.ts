@@ -1,10 +1,11 @@
 import { OrganizationRepository } from "@/repositories/organizations-repository";
 import { Organization } from "@prisma/client";
+import { hash } from "bcryptjs";
 
 interface CreateOrganizationRequestRequest {
   name: string;
   login: string;
-  password: string;
+  unHashedPassword: string;
   description: string;
   phone: string;
   localization: string;
@@ -22,11 +23,13 @@ export class CreateOrganizationService {
     name,
     description,
     login,
-    password,
+    unHashedPassword,
     city,
     localization,
     phone,
   }: CreateOrganizationRequestRequest): Promise<CreateOrganizationRequestResponse> {
+    const passwordHashed = await hash(unHashedPassword, 6);
+
     const organization = await this.organizationRepository.create({
       name,
       city,
@@ -34,7 +37,7 @@ export class CreateOrganizationService {
       phone,
       description,
       login,
-      password,
+      password: passwordHashed,
     });
 
     return {
