@@ -11,6 +11,8 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
       name: data.name,
       description: data.description ? data.description : null,
       city: data.city,
+      login: data.login ? data.login : null,
+      password: data.password ? data.password : null,
       createdAt: new Date(),
       localization: data.localization,
       phone: data.phone,
