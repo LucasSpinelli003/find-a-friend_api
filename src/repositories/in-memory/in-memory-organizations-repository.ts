@@ -5,6 +5,18 @@ import { OrganizationRepository } from "../organizations-repository";
 export class InMemoryOrganizationRepository implements OrganizationRepository {
   public organizations: Organization[] = [];
 
+  async filterByLogin(login: string) {
+    const organization = await this.organizations.find((organization) => {
+      return organization.login === login;
+    });
+
+    if (!organization) {
+      return null;
+    }
+
+    return organization;
+  }
+
   async create(data: Prisma.OrganizationCreateInput) {
     const organization: Organization = {
       id: randomUUID(),
