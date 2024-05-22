@@ -9,9 +9,10 @@ export async function create(request: FastifyRequest, response: FastifyReply) {
     weight: z.coerce.number(),
     favoriteFood: z.string(),
     birth: z.coerce.date(),
+    organizationId: z.string(),
   });
 
-  const { name, description, weight, birth, favoriteFood } =
+  const { name, description, weight, birth, favoriteFood, organizationId } =
     createPetSchema.parse(request.body);
 
   const service = makeCreatePetService();
@@ -22,6 +23,7 @@ export async function create(request: FastifyRequest, response: FastifyReply) {
     birth,
     favoriteFood,
     weight,
+    organizationId,
   });
 
   return response.status(201).send({ pet });
