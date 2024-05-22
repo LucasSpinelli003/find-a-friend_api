@@ -21,15 +21,34 @@ export async function authenticate(
     const service = makeAuthenticateOrganizationService();
     const { organization } = await service.execute({ login, password });
 
-    const token = await response.jwtSign({
-      sign: {
-        sub: organization.id,
+    const token = await response.jwtSign(
+      {},
+      {
+        sign: {
+          sub: organization.id,
+        },
       },
-    });
+    );
 
-    const refreshToken = await
+    const refreshToken = await response.jwtSign(
+      {},
+      {
+        sign: {
+          sub: organization.id,
+          expiresIn: "7d",
+        },
+      },
+    );
 
-    return response.status(200).send({ organization });
+    return response
+      .setCookie("refreshToken", refreshToken, {
+        path: "/",
+        secure: true,
+        sameSite: true,
+        httpOnly: true,
+      })
+      .status(200)
+      .send({ token });
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return response.status(404).send({ message: error.message });
