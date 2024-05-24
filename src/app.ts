@@ -5,6 +5,7 @@ import fastifyJwt from "@fastify/jwt";
 import fastifyCookie from "@fastify/cookie";
 import { appPetRoutes } from "./http/controllers/pets/routes";
 import { appOrganizationRoutes } from "./http/controllers/organizations/routes";
+import fastifyCors from "@fastify/cors";
 
 export const app = fastify();
 
@@ -20,6 +21,11 @@ app.register(fastifyJwt, {
 });
 
 app.register(fastifyCookie);
+app.register(fastifyCors, {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+});
 app.register(appPetRoutes);
 app.register(appOrganizationRoutes);
 
