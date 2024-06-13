@@ -3,6 +3,18 @@ import { OrganizationRepository } from "../organizations-repository";
 import { prisma } from "@/lib/prisma";
 
 export class OrganizationPrismaRepository implements OrganizationRepository {
+  async findById(organizationId: string) {
+    const organization = await prisma.organization.findUnique({
+      where: {
+        id: organizationId,
+      },
+    });
+    if (!organization) {
+      return null;
+    }
+    return organization;
+  }
+
   async filterByLogin(login: string) {
     const organizations = await prisma.organization.findFirst({
       where: {
