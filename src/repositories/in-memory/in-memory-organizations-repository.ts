@@ -5,6 +5,17 @@ import { OrganizationRepository } from "../organizations-repository";
 export class InMemoryOrganizationRepository implements OrganizationRepository {
   public organizations: Organization[] = [];
 
+  async findById(organizationId: string) {
+    const organization = await this.organizations.find((organization) => {
+      return organization.id === organizationId;
+    });
+
+    if (!organization) {
+      return null;
+    }
+    return organization;
+  }
+
   async filterByLogin(login: string) {
     const organization = await this.organizations.find((organization) => {
       return organization.login === login;
