@@ -14,22 +14,24 @@ datasource db {
 }
 
 model Pet {
-  id             String       @id @unique @default(uuid())
+  id             String         @id @unique @default(uuid())
   name           String
   description    String
   weight         Float
   fv_food        String
   birth          DateTime?
-  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organization   Organization?  @relation(fields: [organizationId], references: [id])
   organizationId String?
+  Requirements   Requirements[]
 
   @@map("pets")
 }
+
 model Organization {
   id           String   @id @unique @default(uuid())
   name         String
   login        String?
-  password     String? 
+  password     String?
   description  String?
   phone        String
   localization String
@@ -38,4 +40,11 @@ model Organization {
   Pet          Pet[]
 
   @@map("organizations")
+}
+
+model Requirements {
+  id    String @id @unique @default(uuid())
+  name  String
+  Pet   Pet    @relation(fields: [petId], references: [id])
+  petId String
 }
