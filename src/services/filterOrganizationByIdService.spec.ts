@@ -20,7 +20,7 @@ describe("Filter Organization by id", () => {
     });
 
     const { organization } = await sut.execute({ organizationId: response.id });
-    console.log(organization);
+
     expect(organization?.localization).toEqual(response.localization);
   });
 });
