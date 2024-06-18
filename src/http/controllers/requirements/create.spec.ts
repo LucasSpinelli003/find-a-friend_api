@@ -1,5 +1,5 @@
 import { app } from "@/app";
-import { describe, beforeEach, afterEach, it } from "vitest";
+import { describe, beforeEach, afterEach, it, expect } from "vitest";
 import request from "supertest";
 import { createAndAuthenticateOrganization } from "@/services/utils/createAndAuthenticateOrganization";
 import { Pet } from "@prisma/client";
@@ -30,10 +30,15 @@ describe("Create requirement tests E2E", () => {
 
     const { pet }: PetResponse = response.body;
 
-    const requirement = await request(app.server).post("/requirement").send({
-      name: "adsa",
-      petId: pet.id,
-    });
-    console.log(requirement.body.requirement);
+    const responseRequirement = await request(app.server)
+      .post("/requirement")
+      .send({
+        name: "adbbbbbbbsa",
+        petId: pet.id,
+      });
+    const { requirement } = responseRequirement.body;
+    expect(requirement).toEqual(
+      expect.objectContaining({ name: "adbbbbbbbsa" }),
+    );
   });
 });
