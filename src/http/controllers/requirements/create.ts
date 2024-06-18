@@ -14,8 +14,8 @@ export async function create(request: FastifyRequest, response: FastifyReply) {
   try {
     const service = makeCreateRequirementService();
 
-    const requirement = service.execute({ name, petId });
-    return response.status(201).send({ requirement });
+    const requirement = await service.execute({ name, petId });
+    return response.status(201).send(requirement);
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return response.status(404).send({ message: error.message });
