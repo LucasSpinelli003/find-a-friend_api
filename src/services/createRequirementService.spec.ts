@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { CreateRequirementService } from "./createRequirementService";
 import { InMemoryPetsRepository } from "@/repositories/in-memory/in-memory-pets-repository";
 import { randomUUID } from "crypto";
+import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
 describe("", () => {
   let inMemoryRequirementRepository: InMemoryRequirementRepository;
@@ -34,11 +35,11 @@ describe("", () => {
     );
   });
   it("should not be able to create a requirement with a fake pet id", async () => {
-    expect(
+    expect(async () => {
       await createRequirementService.execute({
         name: "fake-name",
         petId: "fake-id",
-      }),
-    );
+      });
+    }).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });

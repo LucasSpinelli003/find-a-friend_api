@@ -1,6 +1,6 @@
 import { PetsRepository } from "@/repositories/pets-repository";
 import { RequirementsRepository } from "@/repositories/requirements-repository";
-import { Requirement } from "@prisma/client";
+import { Requirements } from "@prisma/client";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
 interface CreateRequirementServiceRequest {
@@ -9,7 +9,7 @@ interface CreateRequirementServiceRequest {
 }
 
 interface CreateRequirementServiceResponse {
-  requirement: Requirement;
+  requirement: Requirements;
 }
 
 export class CreateRequirementService {
