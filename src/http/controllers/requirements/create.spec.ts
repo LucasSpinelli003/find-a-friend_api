@@ -31,7 +31,7 @@ describe("Create requirement tests E2E", () => {
     const { pet }: PetResponse = response.body;
 
     const responseRequirement = await request(app.server)
-      .post("/requirement")
+      .post("/requirements")
       .send({
         name: "adbbbbbbbsa",
         petId: pet.id,

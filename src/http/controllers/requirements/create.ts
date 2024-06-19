@@ -20,5 +20,6 @@ export async function create(request: FastifyRequest, response: FastifyReply) {
     if (error instanceof ResourceNotFoundError) {
       return response.status(404).send({ message: error.message });
     }
+    throw error;
   }
 }
