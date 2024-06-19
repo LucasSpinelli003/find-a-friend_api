@@ -26,7 +26,6 @@ describe("", () => {
 
     const { requirements } = await sut.execute({ petId: pet.id });
 
-    console.log(requirements);
     expect(requirements).toHaveLength(2);
     expect(requirements).toEqual([
       expect.objectContaining({ name: "teste1" }),
