@@ -23,6 +23,7 @@ model Pet {
   organization   Organization?  @relation(fields: [organizationId], references: [id])
   organizationId String?
   Requirements   Requirements[]
+  PetPhotos      PetPhotos[]
 
   @@map("pets")
 }
@@ -47,4 +48,11 @@ model Requirements {
   name  String
   Pet   Pet    @relation(fields: [petId], references: [id])
   petId String
+}
+
+model PetPhotos {
+  id             String @id @unique @default(uuid())
+  convertedPhoto String
+  Pet            Pet    @relation(fields: [petId], references: [id])
+  petId          String
 }
