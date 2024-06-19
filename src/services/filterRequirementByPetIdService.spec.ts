@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { FilterRequirementByPetIdService } from "./filterRequirementByPetIdService";
 import { InMemoryRequirementRepository } from "@/repositories/in-memory/in-memory-requirements-repository";
-import { PetsRepository } from "@/repositories/pets-repository";
 import { InMemoryPetsRepository } from "@/repositories/in-memory/in-memory-pets-repository";
 
 describe("", () => {
