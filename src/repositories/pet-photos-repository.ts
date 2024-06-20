@@ -1,6 +1,6 @@
-import { PetPhotos, Prisma } from "@prisma/client";
+import { PetPhoto, Prisma } from "@prisma/client";
 
 export interface PetPhotosRepository {
-  create(data: Prisma.PetPhotosUncheckedCreateInput): Promise<PetPhotos>;
-  listByPetId(petId: string): Promise<PetPhotos[] | null>;
+  create(data: Prisma.PetPhotoUncheckedCreateInput): Promise<PetPhoto>;
+  listByPetId(petId: string): Promise<PetPhoto[] | null>;
 }

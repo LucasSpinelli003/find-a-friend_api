@@ -3,13 +3,13 @@ import { PetPhotosRepository } from "../pet-photos-repository";
 import { prisma } from "@/lib/prisma";
 
 export class PetPhotosPrismaRepository implements PetPhotosRepository {
-  async create(data: Prisma.PetPhotosUncheckedCreateInput) {
-    const petPhotos = await prisma.petPhotos.create({ data });
+  async create(data: Prisma.PetPhotoUncheckedCreateInput) {
+    const petPhotos = await prisma.petPhoto.create({ data });
     return petPhotos;
   }
 
   async listByPetId(petId: string) {
-    const petPhotos = await prisma.petPhotos.findMany({
+    const petPhotos = await prisma.petPhoto.findMany({
       where: {
         petId,
       },

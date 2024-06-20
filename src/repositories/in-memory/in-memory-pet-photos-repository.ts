@@ -1,10 +1,10 @@
-import { PetPhotos, Prisma } from "@prisma/client";
+import { PetPhoto, Prisma } from "@prisma/client";
 import { PetPhotosRepository } from "../pet-photos-repository";
 import { randomUUID } from "crypto";
 
 export class InMemoryPetPhotosRepository implements PetPhotosRepository {
-  private petPhotos: PetPhotos[] = [];
-  async create(data: Prisma.PetPhotosUncheckedCreateInput) {
+  private petPhotos: PetPhoto[] = [];
+  async create(data: Prisma.PetPhotoUncheckedCreateInput) {
     const petPhotos = {
       id: randomUUID(),
       convertedPhoto: data.convertedPhoto,
