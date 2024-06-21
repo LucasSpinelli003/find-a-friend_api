@@ -7,6 +7,7 @@ import { appPetRoutes } from "./http/controllers/pets/routes";
 import { appOrganizationRoutes } from "./http/controllers/organizations/routes";
 import fastifyCors from "@fastify/cors";
 import { appRequirementRoutes } from "./http/controllers/requirements/routes";
+import { petPhotosRoutes } from "./http/controllers/petPhotos/routes";
 
 export const app = fastify();
 
@@ -30,6 +31,7 @@ app.register(fastifyCors, {
 app.register(appPetRoutes);
 app.register(appOrganizationRoutes);
 app.register(appRequirementRoutes);
+app.register(petPhotosRoutes);
 
 app.setErrorHandler((error, _request, response) => {
   if (error instanceof ZodError) {
