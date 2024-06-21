@@ -16,9 +16,9 @@ export async function filterByPetId(
   try {
     const service = makeFilterPetPhotoByPetId();
 
-    const petPhoto = service.execute({ petId });
+    const { petPhotos } = await service.execute({ petId });
 
-    return response.status(200).send({ petPhoto });
+    return response.status(200).send({ petPhotos });
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return response.status(404).send({ message: error.message });

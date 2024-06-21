@@ -21,11 +21,11 @@ export async function create(request: FastifyRequest, response: FastifyReply) {
   try {
     const service = makeCreatePetPhotoService();
 
-    const petPhoto = await service.execute({
+    const { petPhoto } = await service.execute({
       petId,
       convertedPhoto,
     });
-    return response.status(201).send(petPhoto);
+    return response.status(201).send({ petPhoto });
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return response.status(404).send({ message: error.message });
